@@ -6,18 +6,19 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class FoodfactsService {
-   //url per oauth: https://developer.spotify.com/console/get-search-item/
-  //Ottengo il modulo HttpClient
   constructor(private http: HttpClient) { }
 
   searchFood(query: string) {
-    const url = `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${query}&page_size=2&json=true`;
-    const headers = new HttpHeaders({
-
-    });
-
-    let obsTracks = this.http.get(url, { headers });
-    return obsTracks;
- //Ritorno un observable ai componenti che richiedono il servizio
+    const url = `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${query}&page_size=5&json=true`;
+    let obsfood = this.http.get(url);
+    console.log(obsfood);
+    return obsfood;
   }
+
+  getFood(id: string) {
+    const url = `https://world.openfoodfacts.org/api/v0/product/${id}`;
+    console.log(this.http.get(url));
+    return this.http.get(url);
+  }
+
 }
